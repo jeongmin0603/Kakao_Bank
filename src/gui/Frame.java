@@ -12,6 +12,7 @@ public class Frame extends JFrame {
 	public static final Color MAIN_YELLOW = new Color(251, 226, 1);
 	
 	static {
+		UIManager.put("OptionPane.background", Color.white);
 		UIManager.put("TextField.font", new FontUIResource(Macro.getFont(0, 17)));
 		UIManager.put("TextField.border", BorderFactory.createMatteBorder(0, 0, 1, 0, Color.lightGray));
 		UIManager.put("PasswordField.font", new FontUIResource(Macro.getFont(0, 20)));
@@ -26,7 +27,7 @@ public class Frame extends JFrame {
 	public Frame(int w, int h, String title) {
 		setSize(w, h);
 		setTitle(title);
-		setResizable(false);
+		//setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setIconImage(Macro.getImageIcon(100, 100, "logo.png").getImage());

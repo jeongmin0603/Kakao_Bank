@@ -17,7 +17,7 @@ public class TextButton extends JButton {
 	private static Color able = new Color(251, 226, 1);
 	private JTextField[] jTextFields;
 
-	public TextButton(int w, int h, String text, JTextField... jTextFields) {
+	public TextButton(int w, int h, String text, ActionListener action, JTextField... jTextFields) {
 		setText(text);
 		setPreferredSize(new Dimension(w, h));
 		setFont(Macro.getFont(0, 15));
@@ -25,6 +25,7 @@ public class TextButton extends JButton {
 		setBackground(unenable);
 		setFocusPainted(false);
 		setEnabled(false);
+		addActionListener(action);
 
 		this.jTextFields = jTextFields;
 

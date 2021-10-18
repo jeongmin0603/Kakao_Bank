@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 public class Macro {
@@ -115,6 +116,12 @@ public class Macro {
 		btn.setPreferredSize(new Dimension(w, h));
 		btn.addActionListener(action);
 		return btn;
+	}
+	
+	public static JTextField getTextField(int w, int h) {
+		JTextField text = new JTextField();
+		text.setPreferredSize(new Dimension(w, h));
+		return text;
 	}
 
 }
