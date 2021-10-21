@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.plaf.FontUIResource;
 
 public class Frame extends JFrame {
+	public static final Color MAIN_BROWN = new Color(66, 54, 48);
 	public static final Color MAIN_YELLOW = new Color(251, 226, 1);
 	
 	static {

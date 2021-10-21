@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import org.json.simple.JSONObject;
 
@@ -42,6 +43,9 @@ public class RegisterInfo extends Frame {
 
 	public RegisterInfo() {
 		super(500, 960, "회원가입");
+		UIManager.put("Button.background", Frame.MAIN_YELLOW);
+		UIManager.put("Button.foreground", Color.black);
+		
 		Macro.changeJPanelColor(Color.white);
 
 		JPanel panel = new JPanel(new BorderLayout());

@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
@@ -74,6 +75,16 @@ public class Macro {
 
 	public static JPanel coverFlowlayout(int style, Component... components) {
 		JPanel panel = new JPanel(new FlowLayout(style));
+
+		for (Component obj : components)
+			panel.add(obj);
+
+		panel.setOpaque(false);
+		return panel;
+	}
+	
+	public static JPanel combine(LayoutManager layout, Component... components) {
+		JPanel panel = new JPanel(layout);
 
 		for (Component obj : components)
 			panel.add(obj);
