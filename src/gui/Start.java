@@ -11,12 +11,17 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 public class Start extends Frame {
-
+	private static Start instance = new Start();
+	
 	public static void main(String[] args) {
-		new Start();
+		instance.getInstance().setVisible(true);;
+	}
+	
+	public static Start getInstance() {
+		return instance;
 	}
 
-	public Start() {
+	private Start() {
 		super(500, 850, "시작");
 		UIManager.put("Button.background", MAIN_BROWN);
 		UIManager.put("Button.foreground", Color.white);
@@ -27,15 +32,15 @@ public class Start extends Frame {
 		panel.add(getSouth(), BorderLayout.SOUTH);
 
 		add(panel);
-		setVisible(true);
 	}
 
 	private JPanel getSouth() {
 		JPanel panel = Macro.coverFlowlayout(
 				Macro.combine(new GridLayout(0, 1), Macro.coverFlowlayout(Macro.getButton(350, 50, "로그인", v -> {
-					
+					Login.getInstance().setVisible(true);
+					dispose();
 				})), Macro.coverFlowlayout(Macro.getButton(350, 50, "회원가입", v -> {
-					new RegisterInfo();
+					Register_Info.getInstance().setVisible(true);
 					dispose();
 				}))));
 

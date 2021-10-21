@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -131,6 +132,12 @@ public class Macro {
 	
 	public static JTextField getTextField(int w, int h) {
 		JTextField text = new JTextField();
+		text.setPreferredSize(new Dimension(w, h));
+		return text;
+	}
+	
+	public static JPasswordField getPWField(int w, int h) {
+		JPasswordField text = new JPasswordField();
 		text.setPreferredSize(new Dimension(w, h));
 		return text;
 	}

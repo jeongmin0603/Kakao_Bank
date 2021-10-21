@@ -26,7 +26,9 @@ import org.json.simple.JSONObject;
 import model.User;
 import server.Post;
 
-public class RegisterInfo extends Frame {
+public class Register_Info extends Frame {
+	private static Register_Info instance = new Register_Info();
+	
 	private JLabel profile = new JLabel(Macro.getCircleImageIcon(100, 100, "basic.png"));
 	private JLabel error = Macro.getLabel("", 18, Color.red);
 	private JTextField id = Macro.getTextField(400, 30);
@@ -38,10 +40,15 @@ public class RegisterInfo extends Frame {
 	private JRadioButton radio = new JRadioButton("약관 동의");
 
 	public static void main(String[] args) {
-		new RegisterInfo();
+		getInstance().setVisible(true);
+	}
+	
+	public static Register_Info getInstance() {
+		instance = new Register_Info();
+		return instance;
 	}
 
-	public RegisterInfo() {
+	private Register_Info() {
 		super(500, 960, "회원가입");
 		UIManager.put("Button.background", Frame.MAIN_YELLOW);
 		UIManager.put("Button.foreground", Color.black);
@@ -52,16 +59,15 @@ public class RegisterInfo extends Frame {
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(Macro.coverFlowlayout(Macro.getButton(200, 40, "이전", v -> {
 			dispose();
-			new Start();
+			Start.getInstance().setVisible(true);;
 		}), new TextButton(200, 40, "다음", new ClickNextButton(), phone, id, pw, pw_check, number[0], number[1],
 				number[2], number[3], number[4], number[5], name)), BorderLayout.SOUTH);
 
 		add(panel);
-		setVisible(true);
-		addWindowFocusListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				new Start();
+				Start.getInstance().setVisible(true);
 			}
 		});
 	}
