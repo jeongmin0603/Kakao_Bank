@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import org.json.simple.JSONObject;
 
-import server.Post;
+import model.Server;
 
 public class LoginOfIDAndPW extends JPanel {
 	JTextField id = Macro.getTextField(350, 30);
@@ -63,16 +63,17 @@ public class LoginOfIDAndPW extends JPanel {
 			json.put("id", id.getText());
 			json.put("pw", pw.getText());
 
-			try (Post post = new Post("/auth/login", json)) {
+			try (Server post = new Server("POST", "/auth/login", json)) {
 
 				if (post.getResponsesCode() == 200) {
+					Login.getInstance().parseJSon(post.getResponsesBody());
+					
 					Home.getInstance().setVisible(true);
 					Login.getInstance().dispose();
 				} else {
 					error.setText("아이디 혹은 비밀번호를 확인해주세요.");
 				}
 			} catch (Exception e2) {
-				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}

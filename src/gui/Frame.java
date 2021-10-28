@@ -12,6 +12,7 @@ import javax.swing.plaf.FontUIResource;
 public class Frame extends JFrame {
 	public static final Color MAIN_BROWN = new Color(66, 54, 48);
 	public static final Color MAIN_YELLOW = new Color(251, 226, 1);
+	public static final Color MAIN_DARKBLUE = new Color(52, 59, 88);
 	
 	static {
 		UIManager.put("OptionPane.background", Color.white);

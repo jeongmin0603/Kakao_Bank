@@ -3,12 +3,21 @@ package model;
 import org.json.simple.JSONObject;
 
 public class User {
-
+	private static String token;
 	private static String id;
 	private static String pw;
 	private static String phone;
 	private static String name;
 	private static String birth; // 주민등록번호 앞자리
+
+	
+	public static String getToken() {
+		return token;
+	}
+
+	public static void setToken(String token) {
+		User.token = token;
+	}
 
 	public static String getId() {
 		return id;

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +18,7 @@ import javax.crypto.Mac;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class RandomKeyPad extends JPanel  {
+public class RandomKeyPad extends JPanel{
 	
 	public RandomKeyPad() {
 		setBackground(Color.white);
@@ -33,6 +34,7 @@ public class RandomKeyPad extends JPanel  {
 			btn.setFont(Macro.getFont(1, 20));
 			btn.setBorder(null);
 			btn.setFocusable(false);
+			btn.setPreferredSize(new Dimension(160, 80));
 			add(btn);
 		}
 	}

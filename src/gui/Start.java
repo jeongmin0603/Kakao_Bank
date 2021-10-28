@@ -40,7 +40,7 @@ public class Start extends Frame {
 					Login.getInstance().setVisible(true);
 					dispose();
 				})), Macro.coverFlowlayout(Macro.getButton(350, 50, "회원가입", v -> {
-					Register_Info.getInstance().setVisible(true);
+					Register.getInstance().setVisible(true);
 					dispose();
 				}))));
 

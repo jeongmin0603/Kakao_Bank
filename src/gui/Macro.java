@@ -112,6 +112,12 @@ public class Macro {
 		label.setFont(getFont(0, size));
 		return label;
 	}
+	public static JLabel getLabel(String text, int style, int size, Color color) {
+		JLabel label = new JLabel(text);
+		label.setForeground(color);
+		label.setFont(getFont(style, size));
+		return label;
+	}
 
 	public static JLabel getLabel(String text, int style, int size) {
 		JLabel label = new JLabel(text);
@@ -127,6 +133,8 @@ public class Macro {
 		JButton btn = new JButton(text);
 		btn.setPreferredSize(new Dimension(w, h));
 		btn.addActionListener(action);
+		btn.setBorder(null);
+		btn.setFocusPainted(false);
 		return btn;
 	}
 	

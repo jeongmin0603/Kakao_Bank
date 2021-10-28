@@ -23,45 +23,52 @@ import javax.swing.UIManager;
 
 import org.json.simple.JSONObject;
 
+import model.Server;
 import model.User;
-import server.Post;
 
-public class Register_Info extends Frame {
-	private static Register_Info instance = new Register_Info();
-	
+public class Register extends Frame {
+	private static Register instance = new Register();
+
 	private JLabel profile = new JLabel(Macro.getCircleImageIcon(100, 100, "basic.png"));
 	private JLabel error = Macro.getLabel("", 18, Color.red);
 	private JTextField id = Macro.getTextField(400, 30);
 	private JTextField pw = Macro.getTextField(400, 30);
 	private JTextField pw_check = Macro.getTextField(400, 30);
 	private JTextField phone = Macro.getTextField(400, 30);
-	private JTextField[] number = new JTextField[6];
+	private JTextField[] birth = new JTextField[8];
 	private JTextField name = Macro.getTextField(400, 30);
 	private JRadioButton radio = new JRadioButton("약관 동의");
 
 	public static void main(String[] args) {
 		getInstance().setVisible(true);
 	}
-	
-	public static Register_Info getInstance() {
-		instance = new Register_Info();
+
+	public static Register getInstance() {
+		if(instance == null) instance = new Register();
 		return instance;
 	}
+	
+	@Override
+	public void dispose() {
+		instance = null;
+		super.dispose();
+	}
 
-	private Register_Info() {
-		super(500, 960, "회원가입");
+	private Register() {
+		super(500, 850, "회원가입");
 		UIManager.put("Button.background", Frame.MAIN_YELLOW);
 		UIManager.put("Button.foreground", Color.black);
-		
+
 		Macro.changeJPanelColor(Color.white);
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(Macro.coverFlowlayout(Macro.getButton(200, 40, "이전", v -> {
 			dispose();
-			Start.getInstance().setVisible(true);;
-		}), new TextButton(200, 40, "다음", new ClickNextButton(), phone, id, pw, pw_check, number[0], number[1],
-				number[2], number[3], number[4], number[5], name)), BorderLayout.SOUTH);
+			Start.getInstance().setVisible(true);
+			;
+		}), new TextButton(200, 40, "다음", new ClickNextButton(), phone, id, pw, pw_check, birth[0], birth[1], birth[2],
+				birth[3], birth[4], birth[5], birth[6], birth[7], name)), BorderLayout.SOUTH);
 
 		add(panel);
 		addWindowListener(new WindowAdapter() {
@@ -75,14 +82,15 @@ public class Register_Info extends Frame {
 	private JPanel getCenter() {
 		JPanel panel = new JPanel(new BorderLayout());
 
-		for (int i = 0; i < 6; i++) {
-			number[i] = getNumberField(40, 30, i);
+		for (int i = 0; i < 8; i++) {
+			birth[i] = getNumberField(45, 30, i);
 		}
-		
-		phone.addKeyListener(new KeyAdapter() {			
+
+		phone.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(phone.getText().length() == 11 && phone.getText().matches("^[0-9]+$")) phone.setText(phone.getText().replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3"));
+				if (phone.getText().length() == 11 && phone.getText().matches("^[0-9]+$"))
+					phone.setText(phone.getText().replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3"));
 			}
 		});
 
@@ -91,10 +99,8 @@ public class Register_Info extends Frame {
 		center.add(getInputPanel("비밀번호", Macro.coverFlowlayout(pw)));
 		center.add(getInputPanel("비밀번호 확인", Macro.coverFlowlayout(pw_check)));
 		center.add(getInputPanel("전화번호", Macro.coverFlowlayout(phone)));
-		center.add(getInputPanel("주민등록번호",
-				Macro.coverFlowlayout(number[0], number[1], number[2], number[3], number[4], number[5],
-						Macro.getLabel("-", 35, Color.LIGHT_GRAY),
-						Macro.getLabel("*******", 35, Color.LIGHT_GRAY))));
+		center.add(getInputPanel("생년월일", Macro.coverFlowlayout(birth[0], birth[0], birth[1], birth[2], birth[3],
+				birth[4], birth[5], birth[6], birth[7])));
 		center.add(getInputPanel("이름(실명)", Macro.coverFlowlayout(name)));
 		center.add(Macro.coverFlowlayout(FlowLayout.LEFT, radio));
 		center.add(Macro.coverFlowlayout(FlowLayout.LEFT, error));
@@ -102,7 +108,7 @@ public class Register_Info extends Frame {
 		panel.add(Macro.coverFlowlayout(FlowLayout.LEFT, profile), BorderLayout.NORTH);
 		panel.add(Macro.coverFlowlayout(center), BorderLayout.CENTER);
 		panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-		
+
 		return Macro.coverFlowlayout(panel);
 	}
 
@@ -120,8 +126,8 @@ public class Register_Info extends Frame {
 		text.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(index + 1 != 6) {
-					number[index + 1].requestFocus();					
+				if (index + 1 != 8) {
+					birth[index + 1].requestFocus();
 				}
 			}
 		});
@@ -129,43 +135,63 @@ public class Register_Info extends Frame {
 	}
 
 	private class ClickNextButton implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
+		private boolean checkInfo() {
 			String text = null;
-			
-			if(!id.getText().matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{3,12}$")) {
+
+			if (!id.getText().matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{3,12}$")) {
 				id.setText("");
 				id.requestFocus();
 				text = "아이디를 확인해주세요.";
-			} else if(!pw.getText().matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$")) {
+			} else if (!pw.getText()
+					.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$")) {
 				pw.setText("");
 				pw.requestFocus();
 				text = "비밀번호를 확인해주세요.";
-			} else if(!pw.getText().equals(pw_check.getText())) {
+			} else if (!pw.getText().equals(pw_check.getText())) {
 				pw_check.requestFocus();
 				pw_check.setText("");
 				text = "비밀번호가 일치하지 않습니다.";
-			} else if(!numberCheck()) {
-				for(int i = 0; i < 6; i++) number[i].setText("");
-				number[0].requestFocus();
+			} else if (!numberCheck()) {
+				for (int i = 0; i < 6; i++)
+					birth[i].setText("");
+				birth[0].requestFocus();
 				text = "주민등록번호를 확인해주세요.";
-			} else if(!radio.isSelected()) {
+			} else if (!radio.isSelected()) {
 				text = "약관을 체크해 주세요.";
 			}
-			
-			if(text != null) {
-				error.setText(text);
-				return;
-			}
-			
-			error.setText("");
-			try (Post post = new Post("/auth/register", User.getJSON())) {
-				int code = post.getResponsesCode();
 
+			if (text != null) {
+				error.setText(text);
+				return false;
+			}
+
+			return true;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (!checkInfo())
+				return;
+			error.setText("");
+
+			User.setId(id.getText());
+			User.setBirth(birth[0].getText() + birth[1].getText() + birth[2].getText() + birth[3].getText()
+					+ birth[4].getText() + birth[5].getText() + birth[6].getText() + birth[7].getText());
+			User.setName(name.getText());
+			User.setPhone(phone.getText());
+			User.setPw(pw.getText());
+
+			try (Server post = new Server("POST", "/auth/register", User.getJSON())) {
+				int code = post.getResponsesCode();
+				
+				System.out.println(User.getJSON());
 				if (code == 200) {
-					post.getResponsesBody();
+					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "확인", JOptionPane.INFORMATION_MESSAGE);
+					
+					Start.getInstance().setVisible(true);
+					dispose();
 				} else if (code == 403) {
-					error.setText("중복된 계정입니다.");
+					error.setText("아이디 또는 핸드폰번호가 중복되었습니다.");
 				}
 
 			} catch (Exception e2) {
@@ -175,16 +201,15 @@ public class Register_Info extends Frame {
 		}
 
 		private boolean numberCheck() {
-			for (int i = 0; i < 6; i++) {
-				if (number[i].getText().length() != 1) {
+			for (int i = 0; i < 8; i++) {
+				if (birth[i].getText().length() != 1) {
 					return false;
 				}
 
-				if (!number[i].getText().matches("^[0-9]+$")) {
+				if (!birth[i].getText().matches("^[0-9]+$")) {
 					return false;
 				}
 			}
-
 			return true;
 		}
 	}
