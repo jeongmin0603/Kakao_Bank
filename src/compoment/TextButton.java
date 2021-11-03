@@ -1,4 +1,4 @@
-package gui;
+package compoment;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +11,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import gui.Macro;
 
 public class TextButton extends JButton {
 	private static Color unenable = new Color(246, 246, 246);
@@ -25,26 +29,43 @@ public class TextButton extends JButton {
 		setBackground(unenable);
 		setFocusPainted(false);
 		setEnabled(false);
+		setForeground(Color.white);
 		addActionListener(action);
 
 		this.jTextFields = jTextFields;
 
 		for (JTextField t : jTextFields) {
-			t.addKeyListener(new EmptyTextCheck());
+			t.getDocument().addDocumentListener(new EmptyTextCheck());
 		}
 	}
 
-	private class EmptyTextCheck extends KeyAdapter {
+	private class EmptyTextCheck implements DocumentListener {
 		@Override
-		public void keyReleased(KeyEvent e) {
+		public void changedUpdate(DocumentEvent e) {
+			checkAllTextFieldNotEmpty();
+		}
+
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			checkAllTextFieldNotEmpty();
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			checkAllTextFieldNotEmpty();
+		}
+
+		private void checkAllTextFieldNotEmpty() {
 			for (JTextField t : jTextFields) {
 				if (t.getText().isEmpty()) {
 					setBackground(unenable);
+					setForeground(Color.white);
 					setEnabled(false);
 					return;
 				}
 			}
 
+			setForeground(Color.black);
 			setBackground(able);
 			setEnabled(true);
 		}

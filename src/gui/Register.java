@@ -23,6 +23,7 @@ import javax.swing.UIManager;
 
 import org.json.simple.JSONObject;
 
+import compoment.TextButton;
 import model.Server;
 import model.User;
 
@@ -31,6 +32,7 @@ public class Register extends Frame {
 
 	private JLabel profile = new JLabel(Macro.getCircleImageIcon(100, 100, "basic.png"));
 	private JLabel error = Macro.getLabel("", 18, Color.red);
+	
 	private JTextField id = Macro.getTextField(400, 30);
 	private JTextField pw = Macro.getTextField(400, 30);
 	private JTextField pw_check = Macro.getTextField(400, 30);
@@ -44,7 +46,8 @@ public class Register extends Frame {
 	}
 
 	public static Register getInstance() {
-		if(instance == null) instance = new Register();
+		if (instance == null)
+			instance = new Register();
 		return instance;
 	}
 	
@@ -59,22 +62,21 @@ public class Register extends Frame {
 		UIManager.put("Button.background", Frame.MAIN_YELLOW);
 		UIManager.put("Button.foreground", Color.black);
 
-		Macro.changeJPanelColor(Color.white);
+		UIManager.put("Panel.background", Color.white);
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(Macro.coverFlowlayout(Macro.getButton(200, 40, "이전", v -> {
 			dispose();
-			Start.getInstance().setVisible(true);
-			;
-		}), new TextButton(200, 40, "다음", new ClickNextButton(), phone, id, pw, pw_check, birth[0], birth[1], birth[2],
+			InitialScreen.getInstance().setVisible(true);
+		}), new TextButton(200, 40, "다음", new ClickRegistertButton(), phone, id, pw, pw_check, birth[0], birth[1], birth[2],
 				birth[3], birth[4], birth[5], birth[6], birth[7], name)), BorderLayout.SOUTH);
 
 		add(panel);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				Start.getInstance().setVisible(true);
+				InitialScreen.getInstance().setVisible(true);
 			}
 		});
 	}
@@ -134,7 +136,7 @@ public class Register extends Frame {
 		return text;
 	}
 
-	private class ClickNextButton implements ActionListener {
+	private class ClickRegistertButton implements ActionListener {
 		private boolean checkInfo() {
 			String text = null;
 
@@ -184,11 +186,10 @@ public class Register extends Frame {
 			try (Server post = new Server("POST", "/auth/register", User.getJSON())) {
 				int code = post.getResponsesCode();
 				
-				System.out.println(User.getJSON());
 				if (code == 200) {
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "확인", JOptionPane.INFORMATION_MESSAGE);
 					
-					Start.getInstance().setVisible(true);
+					InitialScreen.getInstance().setVisible(true);
 					dispose();
 				} else if (code == 403) {
 					error.setText("아이디 또는 핸드폰번호가 중복되었습니다.");

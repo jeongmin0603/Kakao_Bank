@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -66,6 +67,17 @@ public class Macro {
 
 	public static JPanel coverFlowlayout(Component... components) {
 		JPanel panel = new JPanel(new FlowLayout());
+
+		for (Component obj : components)
+			panel.add(obj);
+
+		panel.setOpaque(false);
+		return panel;
+	}
+	
+	public static JPanel coverVertical(Component... components) {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		for (Component obj : components)
 			panel.add(obj);
@@ -123,10 +135,6 @@ public class Macro {
 		JLabel label = new JLabel(text);
 		label.setFont(getFont(style, size));
 		return label;
-	}
-
-	public static void changeJPanelColor(Color color) {
-		UIManager.put("Panel.background", color);
 	}
 
 	public static JButton getButton(int w, int h, String text, ActionListener action) {

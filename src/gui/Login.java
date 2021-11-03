@@ -8,9 +8,12 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
 
 import org.json.simple.JSONObject;
 
+import compoment.LoginOfEasyKey;
+import compoment.LoginOfIDAndPW;
 import model.User;
 
 public class Login extends Frame {
@@ -34,7 +37,7 @@ public class Login extends Frame {
 
 	private Login() {
 		super(500, 850, "로그인");
-		Macro.changeJPanelColor(Color.white);
+		UIManager.put("Panel.background", Color.white);
 
 		JPanel panel = new JPanel(new GridLayout(1, 1));
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);
@@ -45,7 +48,7 @@ public class Login extends Frame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				Start.getInstance().setVisible(true);
+				InitialScreen.getInstance().setVisible(true);
 			}
 		});
 		add(panel);

@@ -10,31 +10,34 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-public class Start extends Frame {
-	private static Start instance = new Start();
-	
+public class InitialScreen extends Frame {
+	private static InitialScreen instance = new InitialScreen();
+
 	public static void main(String[] args) {
-		instance.getInstance().setVisible(true);;
+		InitialScreen.getInstance().setVisible(true);
 	}
-	
-	public static Start getInstance() {
+
+	public static InitialScreen getInstance() {
+		if (instance == null)
+			instance = new InitialScreen();
+
 		return instance;
 	}
 
-	private Start() {
+	private InitialScreen() {
 		super(500, 850, "시작");
 		UIManager.put("Button.background", MAIN_BROWN);
 		UIManager.put("Button.foreground", Color.white);
-		Macro.changeJPanelColor(MAIN_YELLOW);
+		UIManager.put("Panel.background", MAIN_YELLOW);
 
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(getNorth(), BorderLayout.NORTH);
-		panel.add(getSouth(), BorderLayout.SOUTH);
+		panel.add(getIcon(), BorderLayout.NORTH);
+		panel.add(getButtons(), BorderLayout.SOUTH);
 
 		add(panel);
 	}
 
-	private JPanel getSouth() {
+	private JPanel getButtons() {
 		JPanel panel = Macro.coverFlowlayout(
 				Macro.combine(new GridLayout(0, 1), Macro.coverFlowlayout(Macro.getButton(350, 50, "로그인", v -> {
 					Login.getInstance().setVisible(true);
@@ -44,14 +47,14 @@ public class Start extends Frame {
 					dispose();
 				}))));
 
+		panel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 		return panel;
 	}
 
-	private JPanel getNorth() {
+	private JPanel getIcon() {
 		JPanel panel = new JPanel(new FlowLayout());
 		panel.add(new JLabel(Macro.getImageIcon(150, 150, "logo.png")));
 		panel.setBorder(BorderFactory.createEmptyBorder(100, 0, 100, 0));
 		return panel;
 	}
-
 }

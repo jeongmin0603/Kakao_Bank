@@ -1,4 +1,4 @@
-package gui;
+package compoment;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 
 import org.json.simple.JSONObject;
 
+import gui.Home;
+import gui.Login;
+import gui.Macro;
 import model.Server;
 
 public class LoginOfIDAndPW extends JPanel {
@@ -26,12 +29,12 @@ public class LoginOfIDAndPW extends JPanel {
 		setLayout(new FlowLayout());
 
 		JPanel panel = new JPanel(new BorderLayout(130, 130));
-		panel.add(Macro.coverFlowlayout(FlowLayout.LEFT, Macro.getLabel("로그인", 1, 30)), BorderLayout.NORTH);
+		panel.add(Macro.coverFlowlayout(Macro.getLabel("로그인", 1, 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Macro.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLogin(), id, pw)), BorderLayout.SOUTH);
+		panel.add(Macro.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLoginButton(), id, pw)), BorderLayout.SOUTH);
 
 		setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
-		add(panel);
+		add(Macro.coverFlowlayout(panel));
 	}
 
 	private JPanel getCenter() {
@@ -55,7 +58,7 @@ public class LoginOfIDAndPW extends JPanel {
 		return Macro.coverFlowlayout(panel);
 	}
 
-	private class ClickLogin implements ActionListener {
+	private class ClickLoginButton implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 

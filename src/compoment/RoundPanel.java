@@ -1,4 +1,4 @@
-package gui;
+package compoment;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -29,5 +30,4 @@ public class RoundPanel extends JPanel{
 		this.color = color;
 		setPreferredSize(new Dimension(w, h));
 	}
-
 }
