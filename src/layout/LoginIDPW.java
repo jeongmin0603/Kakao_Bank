@@ -1,4 +1,4 @@
-package compoment;
+package layout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,26 +15,31 @@ import javax.swing.JTextField;
 
 import org.json.simple.JSONObject;
 
+import compoment.Label;
+import compoment.Layout;
+import compoment.PasswordField;
+import compoment.TextButton;
+import compoment.TextField;
 import gui.Home;
 import gui.Login;
-import gui.Macro;
 import model.Server;
 
-public class LoginOfIDAndPW extends JPanel {
-	JTextField id = Macro.getTextField(350, 30);
-	JTextField pw = Macro.getPWField(350, 30);
-	JLabel error = Macro.getLabel("", 18, Color.red);
+public class LoginIDPW extends JPanel {
+	
+	JTextField id = new TextField(350, 30);
+	JTextField pw = new PasswordField(350, 30);
+	JLabel error = new Label("", 18, Color.red);
 
-	public LoginOfIDAndPW() {
+	public LoginIDPW() {
 		setLayout(new FlowLayout());
 
 		JPanel panel = new JPanel(new BorderLayout(130, 130));
-		panel.add(Macro.coverFlowlayout(Macro.getLabel("로그인", 1, 30)), BorderLayout.NORTH);
+		panel.add(Layout.coverFlowlayout(new Label("로그인", 1, 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Macro.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLoginButton(), id, pw)), BorderLayout.SOUTH);
+		panel.add(Layout.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLogin(), id, pw)), BorderLayout.SOUTH);
 
 		setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
-		add(Macro.coverFlowlayout(panel));
+		add(Layout.coverFlowlayout(panel));
 	}
 
 	private JPanel getCenter() {
@@ -43,22 +48,23 @@ public class LoginOfIDAndPW extends JPanel {
 
 		panel.add(getInput("아이디", id));
 		panel.add(getInput("비밀번호", pw));
-		panel.add(Macro.coverFlowlayout(FlowLayout.LEFT, error));
+		
+		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, error));
 
 		panel.setPreferredSize(new Dimension(350, 210));
-		return Macro.coverFlowlayout(panel);
+		return Layout.coverFlowlayout(panel);
 	}
 
 	private JPanel getInput(String text, JTextField input) {
 		JPanel panel = new JPanel(new BorderLayout());
 
-		panel.add(Macro.coverFlowlayout(FlowLayout.LEFT, Macro.getLabel(text)), BorderLayout.NORTH);
-		panel.add(Macro.coverFlowlayout(input), BorderLayout.CENTER);
+		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label(text)), BorderLayout.NORTH);
+		panel.add(Layout.coverFlowlayout(input), BorderLayout.CENTER);
 
-		return Macro.coverFlowlayout(panel);
+		return Layout.coverFlowlayout(panel);
 	}
 
-	private class ClickLoginButton implements ActionListener {
+	private class ClickLogin implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -69,7 +75,7 @@ public class LoginOfIDAndPW extends JPanel {
 			try (Server post = new Server("POST", "/auth/login", json)) {
 
 				if (post.getResponsesCode() == 200) {
-					Login.getInstance().parseJSon(post.getResponsesBody());
+					Login.parseUserJSon(post.getResponsesBody());
 					
 					Home.getInstance().setVisible(true);
 					Login.getInstance().dispose();

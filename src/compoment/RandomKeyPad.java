@@ -6,22 +6,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
-import javax.crypto.Mac;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import gui.Macro;
+import gui.Style;
 
 public class RandomKeyPad extends JPanel {
 	private JTextField[] numbers;
@@ -39,7 +31,7 @@ public class RandomKeyPad extends JPanel {
 			btn.setSelected(false);
 			btn.setBackground(Color.white);
 			btn.setName(list.get(i).equals("←") ? "remove" : list.get(i));
-			btn.setFont(Macro.getFont(1, 20));
+			btn.setFont(Style.getFont(1, 20));
 			btn.setBorder(null);
 			btn.setFocusable(false);
 			btn.setPreferredSize(new Dimension(w, h));

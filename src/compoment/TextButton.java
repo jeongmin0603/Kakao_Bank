@@ -14,7 +14,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import gui.Macro;
+import gui.Style;
 
 public class TextButton extends JButton {
 	private static Color unenable = new Color(246, 246, 246);
@@ -24,7 +24,7 @@ public class TextButton extends JButton {
 	public TextButton(int w, int h, String text, ActionListener action, JTextField... jTextFields) {
 		setText(text);
 		setPreferredSize(new Dimension(w, h));
-		setFont(Macro.getFont(0, 15));
+		setFont(Style.getFont(0, 15));
 		setBorder(new LineBorder(Color.LIGHT_GRAY, 1, true));
 		setBackground(unenable);
 		setFocusPainted(false);

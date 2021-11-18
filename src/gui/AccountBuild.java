@@ -19,30 +19,17 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import compoment.TextButton;
-import compoment.UserInfo;
+import layout.AccountUserInfo;
+import model.Account;
 import model.User;
 
 public class AccountBuild extends Frame {
 	private static AccountBuild instance = new AccountBuild();
 	JPanel panel = new JPanel(new FlowLayout());
+	private Account account = new Account();
 	
-	String accountName;
-	String accountPW;
-	
-	public String getAccountName() {
-		return accountName;
-	}
-
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
-
-	public String getAccountPW() {
-		return accountPW;
-	}
-
-	public void setAccountPW(String accountPW) {
-		this.accountPW = accountPW;
+	public Account getAccount() {
+		return account;
 	}
 
 	public static void main(String[] args) {
@@ -69,20 +56,15 @@ public class AccountBuild extends Frame {
 		super(500, 850, "계좌 개설");
 		UIManager.put("Panel.background", Color.white);
 
-		panel.add(new UserInfo());
+		panel.add(new AccountUserInfo());
 
 		add(panel);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// Home.getInstance().setVisible(true);
+				Home.getInstance().setVisible(true);
 			}
 		});
 	}
-
-	
-
-	
-
 	
 }

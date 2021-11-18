@@ -3,6 +3,7 @@ package model;
 import org.json.simple.JSONObject;
 
 public class User {
+	
 	private static String token;
 	private static String id;
 	private static String pw;

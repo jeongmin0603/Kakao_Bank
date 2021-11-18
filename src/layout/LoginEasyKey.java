@@ -1,4 +1,4 @@
-package compoment;
+package layout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -15,23 +14,28 @@ import javax.swing.JTextField;
 
 import org.json.simple.JSONObject;
 
+import compoment.Label;
+import compoment.Layout;
+import compoment.RandomKeyPad;
+import compoment.TextButton;
+import compoment.TextField;
 import gui.Home;
 import gui.Login;
-import gui.Macro;
+import gui.Style;
 import model.Server;
 
-public class LoginOfEasyKey extends JPanel {
-	private JLabel error = Macro.getLabel("", 18, Color.red);
-	private JTextField id = Macro.getTextField(350, 30);
+public class LoginEasyKey extends JPanel {
+	private JLabel error = new Label("", 18, Color.red);
+	private JTextField id = new TextField(350, 30);
 	private JTextField[] numbers = new JTextField[6];
 
-	public LoginOfEasyKey() {
+	public LoginEasyKey() {
 		setLayout(new FlowLayout());
 
 		JPanel panel = new JPanel(new BorderLayout(50, 50));
-		panel.add(Macro.coverFlowlayout(Macro.getLabel("간편 로그인", 1, 30)), BorderLayout.NORTH);
+		panel.add(Layout.coverFlowlayout(new Label("간편 로그인", 1, 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Macro.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLoginButton(), numbers[0], numbers[1],
+		panel.add(Layout.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLoginButton(), numbers[0], numbers[1],
 				numbers[2], numbers[3], numbers[4], numbers[5], id)), BorderLayout.SOUTH);
 
 		setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
@@ -42,18 +46,18 @@ public class LoginOfEasyKey extends JPanel {
 		JPanel panel = new JPanel(new BorderLayout(40, 40));
 
 		for (int i = 0; i < numbers.length; i++) {
-			numbers[i] = Macro.getTextField(55, 50);
+			numbers[i] = new TextField(55, 50);
 			numbers[i].setHorizontalAlignment(JLabel.CENTER);
-			numbers[i].setFont(Macro.getFont(0, 25));
+			numbers[i].setFont(Style.getFont(0, 25));
 			numbers[i].setFocusable(false);
 		}
 
-		panel.add(Macro.combine(new GridLayout(0, 1, 20, 20), Macro.coverFlowlayout(id),
-				Macro.coverFlowlayout(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5])), BorderLayout.NORTH);
-		panel.add(Macro.coverFlowlayout(new RandomKeyPad(160, 45, numbers)), BorderLayout.CENTER);
-		panel.add(Macro.coverFlowlayout(error), BorderLayout.SOUTH);
+		panel.add(Layout.combine(new GridLayout(0, 1, 20, 20), Layout.coverFlowlayout(id),
+				Layout.coverFlowlayout(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5])), BorderLayout.NORTH);
+		panel.add(Layout.coverFlowlayout(new RandomKeyPad(160, 45, numbers)), BorderLayout.CENTER);
+		panel.add(Layout.coverFlowlayout(error), BorderLayout.SOUTH);
 
-		return Macro.coverFlowlayout(panel);
+		return Layout.coverFlowlayout(panel);
 	}
 
 	private class ClickLoginButton implements ActionListener {
@@ -67,9 +71,8 @@ public class LoginOfEasyKey extends JPanel {
 			System.out.println(json);
 			
 			try (Server post = new Server("POST", "/auth/easy/login", json)) {
-				System.out.println(post.getResponsesCode());
 				if (post.getResponsesCode() == 200) {
-					Login.getInstance().parseJSon(post.getResponsesBody());
+					Login.parseUserJSon(post.getResponsesBody());
 
 					Home.getInstance().setVisible(true);
 					Login.getInstance().dispose();

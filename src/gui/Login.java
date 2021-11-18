@@ -12,12 +12,12 @@ import javax.swing.UIManager;
 
 import org.json.simple.JSONObject;
 
-import compoment.LoginOfEasyKey;
-import compoment.LoginOfIDAndPW;
+import layout.LoginEasyKey;
+import layout.LoginIDPW;
 import model.User;
 
 public class Login extends Frame {
-	private static Login instance = new Login();
+	private static Login instance = null;
 
 	public static void main(String[] args) {
 		Login.getInstance().setVisible(true);
@@ -40,21 +40,22 @@ public class Login extends Frame {
 		UIManager.put("Panel.background", Color.white);
 
 		JPanel panel = new JPanel(new GridLayout(1, 1));
+		
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);
-		tab.addTab("아이디 & 비밀번호", new LoginOfIDAndPW());
-		tab.addTab("간편인증번호", new LoginOfEasyKey());
+		tab.addTab("아이디 & 비밀번호", new LoginIDPW());
+		tab.addTab("간편인증번호", new LoginEasyKey());
 
 		panel.add(tab);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				InitialScreen.getInstance().setVisible(true);
+				Start.getInstance().setVisible(true);
 			}
 		});
 		add(panel);
 	}
 
-	public void parseJSon(JSONObject json) {
+	public static void parseUserJSon(JSONObject json) {
 		JSONObject user = (JSONObject) ((JSONObject) json.get("data")).get("user");
 		
 		User.setToken((String) ((JSONObject) json.get("data")).get("token"));
