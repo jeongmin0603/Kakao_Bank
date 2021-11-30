@@ -41,7 +41,7 @@ public class RemittanceCheckInfo extends JPanel {
 	private JPanel getNorth() {
 		JPanel panel = new JPanel(new FlowLayout());
 
-		panel.add(new Label(receiver.getName() + "에게 이체하시겠습니까?", 0, 30));
+		panel.add(new Label(receiver.getName() + "에게 이체하시겠습니까?", 0, 25));
 		panel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
 
 		JPanel flow = Layout.coverFlowlayout(panel);
@@ -51,7 +51,7 @@ public class RemittanceCheckInfo extends JPanel {
 	}
 
 	private JPanel getCenter() {
-		JPanel panel = new JPanel(new GridLayout(0, 2, 70, 50));
+		JPanel panel = new JPanel(new GridLayout(0, 2, 60, 40));
 
 		Map<String, String> data = new HashMap<String, String>();
 		data.put("출금계좌", account.getId());
@@ -60,8 +60,8 @@ public class RemittanceCheckInfo extends JPanel {
 		data.put("수수료", String.format("%,d원", (int) (Remittance.getInstance().getMoney() * Remittance.getFee())));
 
 		for (String title : data.keySet()) {
-			panel.add(Layout.coverFlowlayout(0, new Label(title, 20, Color.LIGHT_GRAY)));
-			panel.add(Layout.coverFlowlayout(2, new Label(data.get(title), 20)));
+			panel.add(Layout.coverFlowlayout(0, new Label(title, 18, Color.LIGHT_GRAY)));
+			panel.add(Layout.coverFlowlayout(2, new Label(data.get(title), 18)));
 		}
 
 		return Layout.coverFlowlayout(panel);
@@ -69,8 +69,8 @@ public class RemittanceCheckInfo extends JPanel {
 
 	private JPanel getSouth() {
 		JPanel panel = new JPanel(new GridLayout(1, 0, 5, 5));
-		panel.add(new Button(200, 40, "취소", new ClickCancel()));
-		panel.add(new Button(200, 40, "확인", new ClickConfirm()));
+		panel.add(new Button(170, 40, "취소", new ClickCancel()));
+		panel.add(new Button(170, 40, "확인", new ClickConfirm()));
 		return panel;
 	}
 

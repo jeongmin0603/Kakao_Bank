@@ -17,6 +17,7 @@ import compoment.Layout;
 import compoment.RandomKeyPad;
 import compoment.TextButton;
 import compoment.TextField;
+import gui.Frame;
 import gui.Remittance;
 import model.Account;
 import model.Receiver;
@@ -26,15 +27,20 @@ public class RemittancePassword extends JPanel {
 	private TextField[] numbers = new TextField[4];
 	private Label error = new Label("", 15, Color.red);
 
+	public static void main(String[] args) {
+		Frame jf = new Frame(400, 750, "1234");
+		jf.add(Layout.coverFlowlayout(new RemittancePassword()));
+		jf.setVisible(true);;
+	}
 	public RemittancePassword() {
 		setLayout(new FlowLayout());
 
-		JPanel panel = new JPanel(new BorderLayout(100, 100));
+		JPanel panel = new JPanel(new BorderLayout(80, 80));
 		panel.add(Layout.coverFlowlayout(0, new Label("비밀번호 입력", 1, 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(
 				Layout.coverFlowlayout(
-						Layout.coverVertical(Layout.coverFlowlayout(error), Layout.coverFlowlayout(new TextButton(400,
+						Layout.coverVertical(Layout.coverFlowlayout(error), Layout.coverFlowlayout(new TextButton(300,
 								50, "완료", new ClickComplete(), numbers[0], numbers[1], numbers[2], numbers[3])))),
 				BorderLayout.SOUTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
@@ -46,12 +52,12 @@ public class RemittancePassword extends JPanel {
 		JPanel panel = new JPanel(new BorderLayout());
 
 		for (int i = 0; i < 4; i++) {
-			numbers[i] = new TextField(70, 40);
+			numbers[i] = new TextField(50, 40);
 			numbers[i].setHorizontalAlignment(JLabel.CENTER);
 		}
 
 		panel.add(Layout.coverFlowlayout(numbers[0], numbers[1], numbers[2], numbers[3]), BorderLayout.NORTH);
-		panel.add(new RandomKeyPad(150, 70, numbers), BorderLayout.CENTER);
+		panel.add(new RandomKeyPad(110, 70, numbers), BorderLayout.CENTER);
 
 		return Layout.coverFlowlayout(panel);
 	}
@@ -82,7 +88,7 @@ public class RemittancePassword extends JPanel {
 					jf.revalidate();
 					jf.repaint();
 				} else if(code == 403) {
-					error.setText("잘못된 계좌번호 입니다.");
+					error.setText("잘못된 비밀번호 입니다.");
 				} else if(code == 409) {
 					error.setText("자기 자신에게 보낼 수 없습니다.");
 				}

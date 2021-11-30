@@ -17,21 +17,26 @@ import compoment.Layout;
 import compoment.RandomKeyPad;
 import compoment.TextButton;
 import gui.AccountBuild;
-import gui.Home;
+import gui.Frame;
 import model.Account;
 import model.Server;
 
 public class AccountPassword extends JPanel {
 	JTextField[] number = new JTextField[4];
 
+	public static void main(String[] args) {
+		Frame jf = new Frame(400, 700, "test");
+		jf.add(new AccountPassword());
+		jf.setVisible(true);
+	}
 	public AccountPassword() {
 		setLayout(new FlowLayout());
 
-		JPanel panel = new JPanel(new BorderLayout(90, 90));
-		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("계좌 비밀번호를 입력하세요.", 30)), BorderLayout.NORTH);
+		JPanel panel = new JPanel(new BorderLayout(70, 70));
+		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("계좌 비밀번호를 입력하세요.", 25)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(Layout.coverFlowlayout(
-				new TextButton(400, 40, "계설", new ClickBuildButton(), number[0], number[1], number[2], number[3])),
+				new TextButton(300, 40, "계설", new ClickBuildButton(), number[0], number[1], number[2], number[3])),
 				BorderLayout.SOUTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
 
@@ -44,16 +49,16 @@ public class AccountPassword extends JPanel {
 		JPanel numbers = new JPanel(new FlowLayout());
 		for (int i = 0; i < number.length; i++) {
 			number[i] = new JTextField();
-			number[i].setPreferredSize(new Dimension(80, 50));
+			number[i].setPreferredSize(new Dimension(70, 50));
 			number[i].setFocusable(false);
 			numbers.add(number[i]);
 		}
 
 		panel.add(
 				Layout.coverFlowlayout(Layout.coverFlowlayout(
-						Layout.coverVertical(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("통장명")), numbers))),
+						Layout.coverVertical(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("통장 비밀번호")), numbers))),
 				BorderLayout.NORTH);
-		panel.add(Layout.coverFlowlayout(new RandomKeyPad(140, 50, number)), BorderLayout.CENTER);
+		panel.add(Layout.coverFlowlayout(new RandomKeyPad(110, 50, number)), BorderLayout.CENTER);
 
 		return Layout.coverFlowlayout(panel);
 	}

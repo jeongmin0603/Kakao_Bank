@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -71,7 +73,7 @@ public class Remittance extends Frame {
 	}
 
 	private Remittance(Account account) {
-		super(500, 850, "송금");
+		super(400, 750, "송금");
 
 		UIManager.put("Panel.background", Color.WHITE);
 		panel = new JPanel(new FlowLayout());
@@ -80,6 +82,12 @@ public class Remittance extends Frame {
 		panel.add(new RemittanceInfo(account));
 
 		add(panel);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Home.getInstance().setVisible(true);
+			}
+		});
 	}
 
 }

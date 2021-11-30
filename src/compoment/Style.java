@@ -36,8 +36,7 @@ public class Style {
 			new Color(166, 204, 186),
 			new Color(255, 196, 169),
 			new Color(251, 141, 117),
-			new Color(190, 89, 68),
-			new Color(0, 0, 0) 
+			new Color(190, 89, 68)
 	};
 
 	public static final Color MAIN_BROWN = new Color(66, 54, 48);

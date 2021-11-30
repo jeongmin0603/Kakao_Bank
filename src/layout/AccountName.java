@@ -18,7 +18,7 @@ import gui.AccountBuild;
 import model.User;
 
 public class AccountName extends JPanel {
-	private JTextField name = new TextField(400, 50);
+	private JTextField name = new TextField();
 
 	public AccountName() {
 		setLayout(new FlowLayout());
@@ -26,7 +26,7 @@ public class AccountName extends JPanel {
 		JPanel panel = new JPanel(new BorderLayout(120, 120));
 		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("계좌 이름을 입력하세요.", 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Layout.coverFlowlayout(new TextButton(400, 40, "다음", new ClickNextButton(), name)),
+		panel.add(Layout.coverFlowlayout(new TextButton(300, 40, "다음", new ClickNextButton(), name)),
 				BorderLayout.SOUTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
 

@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import gui.Bring;
 import gui.Frame;
 import gui.Home;
 import gui.Remittance;
@@ -42,8 +43,6 @@ public class Account extends RoundPanel {
 			setForeground(Color.black);
 		}
 		
-		System.out.println(index);
-		
 		JPanel panel = new JPanel(new BorderLayout(20, 20));
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(getSouth(), BorderLayout.SOUTH);
@@ -56,7 +55,7 @@ public class Account extends RoundPanel {
 	private JPanel getSouth() {
 		JPanel panel = new JPanel(new FlowLayout());
 		panel.add(new Button(150, 30, 0, 20, "이체", getForeground(), getBackground(), new ClickRemittance()));
-		panel.add(new Button(150, 30, 0, 20, "송금", getForeground(), getBackground(), new ClickRemittance()));
+		panel.add(new Button(150, 30, 0, 20, "가져오기", getForeground(), getBackground(), new ClickBring()));
 
 		panel.setBackground(getBackground());
 		return panel;
@@ -84,6 +83,16 @@ public class Account extends RoundPanel {
 		
 		label.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 0));
 		return label;
+	}
+	
+	private class ClickBring implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			model.Account account = new model.Account(accountId, money);
+			
+			Bring.getInstance(account).setVisible(true);
+			Home.getInstance().dispose();
+		}
 	}
 
 	private class ClickRemittance implements ActionListener {

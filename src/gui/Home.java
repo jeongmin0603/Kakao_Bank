@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -28,29 +30,40 @@ import model.User;
 
 public class Home extends Frame {
 	private static Home instance = null;
-	
+
 	public static void main(String[] args) {
 		Login.getInstance().setVisible(true);
 	}
-	
+
 	public static Home getInstance() {
 		if (instance == null)
 			instance = new Home();
 		return instance;
 	}
 
+	@Override
+	public void dispose() {
+		instance = null;
+		super.dispose();
+	}
+
 	private Home() {
 		super(400, 750, "홈화면");
 		UIManager.put("Panel.background", Color.white);
-		
-		System.out.println(User.getToken());
+
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(getNorth(), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		
+
 		add(panel);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Start.getInstance().setVisible(true);
+			}
+		});
 	}
-	
+
 	private Component getCenter() {
 		JScrollPane scroll = new JScrollPane(getAccountList());
 		scroll.setBorder(null);
@@ -65,44 +78,36 @@ public class Home extends Frame {
 		});
 		return scroll;
 	}
-	
+
 	private JPanel getAddNewAccountPanel() {
 		RoundPanel panel = new RoundPanel(340, 190);
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setLayout(null);
-		
+		panel.setLayout(new BorderLayout());
+
 		JLabel text = new Label("새 계좌 추가하기", 0, 20);
-		text.setPreferredSize(new Dimension(400, 50));
-		text.setBounds(120, 5, 400, 50);
-		
-		Button btn = new Button(400, 200, "+", v -> {
+		Button btn = new Button(320, 100, 1, 50, "+", Color.black, panel.getBackground(), v -> {
 			dispose();
 			AccountBuild.getInstance().setVisible(true);
 		});
-		btn.setFont(Style.getFont(1, 30));
-		btn.setContentAreaFilled(false);
-		btn.setFocusPainted(false);
-		btn.setBorder(null);
-		btn.setBounds(0, 0, 400, 200);
-		
-		panel.add(btn);
-		panel.add(text);
-		
+
+		panel.add(Layout.coverFlowlayout(text), BorderLayout.NORTH);
+		panel.add(Layout.coverFlowlayout(btn), BorderLayout.CENTER);
+
 		return Layout.coverFlowlayout(panel);
 	}
-	
+
 	private JPanel getAccountList() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(getAddNewAccountPanel());
-		
-		try (Server get = new Server("GET", "/account/find/my", null)){
-			if(get.getResponsesCode() == 200) {
+
+		try (Server get = new Server("GET", "/account/find/my", null)) {
+			if (get.getResponsesCode() == 200) {
 				JSONArray arr = (JSONArray) get.getResponsesBody().get("data");
-				
-				for(Object obj : arr) {
+
+				for (Object obj : arr) {
 					JSONObject json = (JSONObject) obj;
-					
+
 					String accountId = (String) json.get("accountId");
 					int money = Integer.parseInt((String) json.get("money"));
 					panel.add(Layout.coverFlowlayout(new Account(accountId, money)));
@@ -111,7 +116,7 @@ public class Home extends Frame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return Layout.coverFlowlayout(panel);
 	}
 

@@ -33,12 +33,12 @@ public class Register extends Frame {
 	private static Register instance = new Register();
 
 	private JLabel error = new Label("", 18, Color.red);
-	private TextField id = new TextField(400, 30);
-	private TextField pw = new TextField(400, 30);
-	private TextField pw_check = new TextField(400, 30);
-	private TextField phone = new TextField(400, 30);
+	private TextField id = new TextField();
+	private TextField pw = new TextField();
+	private TextField pw_check = new TextField();
+	private TextField phone = new TextField();
 	private TextField[] birth = new TextField[8];
-	private TextField name = new TextField(400, 30);
+	private TextField name = new TextField();
 	private JRadioButton radio = new JRadioButton("약관 동의");
 
 	public static void main(String[] args) {
@@ -58,7 +58,7 @@ public class Register extends Frame {
 	}
 
 	private Register() {
-		super(500, 850, "회원가입");
+		super(400, 750, "회원가입");
 		UIManager.put("Button.background", Style.MAIN_YELLOW);
 		UIManager.put("Button.foreground", Color.black);
 
@@ -66,8 +66,8 @@ public class Register extends Frame {
 
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(getpanel(), BorderLayout.CENTER);
-		panel.add(Layout.coverFlowlayout(new Button(200, 40, "이전", new ClickLast()),
-				new TextButton(200, 40, "다음", new ClickRegistert(), phone, id, pw, pw_check, birth[0], birth[1],
+		panel.add(Layout.coverFlowlayout(new Button(180, 40, "이전", new ClickLast()),
+				new TextButton(180, 40, "다음", new ClickRegistert(), phone, id, pw, pw_check, birth[0], birth[1],
 						birth[2], birth[3], birth[4], birth[5], birth[6], birth[7], name)),
 				BorderLayout.SOUTH);
 
@@ -81,10 +81,10 @@ public class Register extends Frame {
 	}
 
 	private JPanel getpanel() {
-		JPanel panel = new JPanel(new GridLayout(0, 1, 20, 20));
+		JPanel panel = new JPanel(new GridLayout(0, 1, 5, 5));
 
 		for (int i = 0; i < 8; i++) {
-			birth[i] = getNumberField(45, 30, i);
+			birth[i] = getNumberField(33, 30, i);
 		}
 
 		phone.addKeyListener(new KeyAdapter() {
@@ -102,7 +102,7 @@ public class Register extends Frame {
 		panel.add(getInputPanel("생년월일", birth[0], birth[0], birth[1], birth[2], birth[3], birth[4], birth[5], birth[6],
 				birth[7]));
 		panel.add(getInputPanel("이름(실명)", name));
-		
+
 		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, radio));
 		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, error));
 
@@ -201,6 +201,10 @@ public class Register extends Frame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println(checkID());
+			System.out.println(checkPW());
+			System.out.println(checkNumber() );
+			System.out.println(isAgree());
 			if (!(checkID() && checkPW() && checkNumber() && isAgree())) {
 				return;
 			}
@@ -216,10 +220,12 @@ public class Register extends Frame {
 		}
 
 		private void register() {
+
 			try (Server post = new Server("POST", "/auth/register", User.getJSON())) {
 				int code = post.getResponsesCode();
+
 				System.out.println("register : " + code);
-				
+
 				if (code == 200) {
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "확인", JOptionPane.INFORMATION_MESSAGE);
 

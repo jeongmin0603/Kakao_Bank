@@ -53,10 +53,11 @@ public class AccountBuild extends Frame {
 	}
 
 	private AccountBuild() {
-		super(500, 850, "계좌 개설");
+		super(400, 750, "계좌 개설");
 		UIManager.put("Panel.background", Color.white);
 
 		panel.add(new AccountUserInfo());
+		panel.setBackground(Color.white);
 
 		add(panel);
 		addWindowListener(new WindowAdapter() {

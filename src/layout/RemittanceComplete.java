@@ -39,7 +39,7 @@ public class RemittanceComplete extends JPanel {
 		JPanel panel = new JPanel(new BorderLayout(70, 70));
 		panel.add(getNorth(), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Layout.coverFlowlayout(new Button(400, 50, "확인", new ClickComfirm())), BorderLayout.SOUTH);
+		panel.add(Layout.coverFlowlayout(new Button(300, 50, "확인", new ClickComfirm())), BorderLayout.SOUTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 		
 		add(panel);
@@ -64,7 +64,7 @@ public class RemittanceComplete extends JPanel {
 	private JPanel getNorth() {
 		JPanel panel = new JPanel(new BorderLayout(10, 10));
 		
-		panel.add(new JLabel(Style.getImageIcon(80, 80, "\\check.png")), BorderLayout.CENTER);
+		panel.add(new JLabel(Style.getImageIcon(60, 60, "\\check.png")), BorderLayout.CENTER);
 		panel.add(Layout.coverFlowlayout(new Label("이체완료", 25)), BorderLayout.SOUTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 0, 70, 0));
 		

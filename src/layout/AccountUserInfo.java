@@ -22,8 +22,8 @@ import model.User;
 
 public class AccountUserInfo extends JPanel {
 	private JLabel error = new Label("", 18, Color.red);
-	private JTextField name = new TextField(400, 30);
-	private JTextField birth = new TextField(250, 30);
+	private JTextField name = new TextField();
+	private JTextField birth = new TextField(150, 30);
 
 	public AccountUserInfo() {
 		setLayout(new FlowLayout());
@@ -33,7 +33,7 @@ public class AccountUserInfo extends JPanel {
 		panel.add(getCenter(), BorderLayout.CENTER);
 		panel.add(
 				Layout.coverVertical(Layout.coverFlowlayout(error),
-						Layout.coverFlowlayout(new TextButton(400, 40, "다음", new CheckUserInfo(), name, birth))),
+						Layout.coverFlowlayout(new TextButton(300, 40, "다음", new CheckUserInfo(), name, birth))),
 				BorderLayout.SOUTH);
 		panel.setBorder(BorderFactory.createEmptyBorder(40, 0, 20, 0));
 

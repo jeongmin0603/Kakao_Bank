@@ -34,7 +34,7 @@ public class AccountComplete extends JPanel {
 		
 		add(getNorth(), BorderLayout.NORTH);
 		add(getCenter(), BorderLayout.CENTER);
-		add(Layout.coverFlowlayout(new Button(400, 50, "완료", new ClickComplete())), BorderLayout.SOUTH);
+		add(Layout.coverFlowlayout(new Button(300, 50, "완료", new ClickComplete())), BorderLayout.SOUTH);
 		
 		setBorder(BorderFactory.createEmptyBorder(70, 0, 70, 0));
 	}
@@ -42,7 +42,7 @@ public class AccountComplete extends JPanel {
 	private JPanel getNorth() {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(Layout.coverFlowlayout(new Label("입출금통장 개설완료", 1, 30)), BorderLayout.CENTER);
-		panel.add(Layout.coverFlowlayout(new Label("<html>입출금 통장이 개설되었습니다.<br>아래의 내용을 확인해주세요.</html>", 25, Color.LIGHT_GRAY)), BorderLayout.SOUTH);
+		panel.add(Layout.coverFlowlayout(new Label("<html>입출금 통장이 개설되었습니다.<br>아래의 내용을 확인해주세요.</html>", 20, Color.LIGHT_GRAY)), BorderLayout.SOUTH);
 		
 		return Layout.coverFlowlayout(panel);
 	}
@@ -50,10 +50,10 @@ public class AccountComplete extends JPanel {
 	private JPanel getCenter() {
 		JPanel panel = new JPanel(new GridLayout(2, 2, 20, 20));
 		
-		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("계좌종류", 25, Color.gray)));
-		panel.add(Layout.coverFlowlayout(FlowLayout.RIGHT, new Label("자유입출금", 25)));
-		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("이체한도", 25, Color.gray)));
-		panel.add(Layout.coverFlowlayout(FlowLayout.RIGHT, new Label("1일 최대 1만원", 25)));
+		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("계좌종류", 20, Color.gray)));
+		panel.add(Layout.coverFlowlayout(FlowLayout.RIGHT, new Label("자유입출금", 20)));
+		panel.add(Layout.coverFlowlayout(FlowLayout.LEFT, new Label("이체한도", 20, Color.gray)));
+		panel.add(Layout.coverFlowlayout(FlowLayout.RIGHT, new Label("1일 최대 1만원", 20)));
 		panel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
 		
 		JPanel flow = Layout.coverFlowlayout(panel);
