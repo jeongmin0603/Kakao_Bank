@@ -4,8 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-import gui.Style;
-
 public class Label extends JLabel {
 
 	public Label(String text) {

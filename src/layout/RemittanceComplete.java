@@ -17,10 +17,10 @@ import javax.swing.UIManager;
 import compoment.Button;
 import compoment.Label;
 import compoment.Layout;
+import compoment.Style;
 import gui.Frame;
 import gui.Home;
 import gui.Remittance;
-import gui.Style;
 
 public class RemittanceComplete extends JPanel {
 	

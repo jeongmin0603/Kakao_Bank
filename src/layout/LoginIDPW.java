@@ -26,17 +26,17 @@ import model.Server;
 
 public class LoginIDPW extends JPanel {
 	
-	JTextField id = new TextField(350, 30);
-	JTextField pw = new PasswordField(350, 30);
+	JTextField id = new TextField(300, 30);
+	JTextField pw = new PasswordField(300, 30);
 	JLabel error = new Label("", 18, Color.red);
 
 	public LoginIDPW() {
 		setLayout(new FlowLayout());
 
-		JPanel panel = new JPanel(new BorderLayout(130, 130));
+		JPanel panel = new JPanel(new BorderLayout(100, 100));
 		panel.add(Layout.coverFlowlayout(new Label("로그인", 1, 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Layout.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLogin(), id, pw)), BorderLayout.SOUTH);
+		panel.add(Layout.coverFlowlayout(new TextButton(300, 50, "로그인", new ClickLogin(), id, pw)), BorderLayout.SOUTH);
 
 		setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 		add(Layout.coverFlowlayout(panel));

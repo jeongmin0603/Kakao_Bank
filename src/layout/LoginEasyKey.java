@@ -17,25 +17,25 @@ import org.json.simple.JSONObject;
 import compoment.Label;
 import compoment.Layout;
 import compoment.RandomKeyPad;
+import compoment.Style;
 import compoment.TextButton;
 import compoment.TextField;
 import gui.Home;
 import gui.Login;
-import gui.Style;
 import model.Server;
 
 public class LoginEasyKey extends JPanel {
 	private JLabel error = new Label("", 18, Color.red);
-	private JTextField id = new TextField(350, 30);
+	private JTextField id = new TextField(300, 30);
 	private JTextField[] numbers = new JTextField[6];
 
 	public LoginEasyKey() {
 		setLayout(new FlowLayout());
 
-		JPanel panel = new JPanel(new BorderLayout(50, 50));
+		JPanel panel = new JPanel(new BorderLayout(20, 20));
 		panel.add(Layout.coverFlowlayout(new Label("간편 로그인", 1, 30)), BorderLayout.NORTH);
 		panel.add(getCenter(), BorderLayout.CENTER);
-		panel.add(Layout.coverFlowlayout(new TextButton(350, 50, "로그인", new ClickLoginButton(), numbers[0], numbers[1],
+		panel.add(Layout.coverFlowlayout(new TextButton(300, 50, "로그인", new ClickLoginButton(), numbers[0], numbers[1],
 				numbers[2], numbers[3], numbers[4], numbers[5], id)), BorderLayout.SOUTH);
 
 		setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
@@ -46,7 +46,7 @@ public class LoginEasyKey extends JPanel {
 		JPanel panel = new JPanel(new BorderLayout(40, 40));
 
 		for (int i = 0; i < numbers.length; i++) {
-			numbers[i] = new TextField(55, 50);
+			numbers[i] = new TextField(45, 50);
 			numbers[i].setHorizontalAlignment(JLabel.CENTER);
 			numbers[i].setFont(Style.getFont(0, 25));
 			numbers[i].setFocusable(false);
@@ -54,7 +54,7 @@ public class LoginEasyKey extends JPanel {
 
 		panel.add(Layout.combine(new GridLayout(0, 1, 20, 20), Layout.coverFlowlayout(id),
 				Layout.coverFlowlayout(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5])), BorderLayout.NORTH);
-		panel.add(Layout.coverFlowlayout(new RandomKeyPad(160, 45, numbers)), BorderLayout.CENTER);
+		panel.add(Layout.coverFlowlayout(new RandomKeyPad(130, 45, numbers)), BorderLayout.CENTER);
 		panel.add(Layout.coverFlowlayout(error), BorderLayout.SOUTH);
 
 		return Layout.coverFlowlayout(panel);

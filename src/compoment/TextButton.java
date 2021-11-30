@@ -14,8 +14,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import gui.Style;
-
 public class TextButton extends JButton {
 	private static Color unenable = new Color(246, 246, 246);
 	private static Color able = new Color(251, 226, 1);

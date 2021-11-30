@@ -9,6 +9,8 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.FontUIResource;
 
+import compoment.Style;
+
 public class Frame extends JFrame {
 
 	static {

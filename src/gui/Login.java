@@ -36,7 +36,7 @@ public class Login extends Frame {
 	}
 
 	private Login() {
-		super(500, 850, "로그인");
+		super(400, 750, "로그인");
 		UIManager.put("Panel.background", Color.white);
 
 		JPanel panel = new JPanel(new GridLayout(1, 1));

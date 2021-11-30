@@ -13,8 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import gui.Style;
-
 public class RandomKeyPad extends JPanel {
 	private JTextField[] numbers;
 	private int index = 0;

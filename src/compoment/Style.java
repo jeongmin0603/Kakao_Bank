@@ -1,4 +1,4 @@
-package gui;
+package compoment;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -15,10 +15,35 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Style {
+	public static final Color[] ACCOUNT_COLOR = { 
+			new Color(251, 226, 1), 
+			new Color(75, 71, 55), 
+			new Color(157, 145, 92),
+			new Color(242, 254, 220), 
+			new Color(27, 61, 47), 
+			new Color(253, 249, 240), 
+			new Color(25, 61, 47),
+			new Color(105, 96, 0), 
+			new Color(0, 107, 94), 
+			new Color(99, 186, 171), 
+			new Color(251, 226, 1),
+			new Color(140, 210, 71),
+			new Color(4, 181, 116),
+			new Color(0, 146, 137),
+			new Color(0, 108, 126),
+			new Color(47, 72, 88),
+			new Color(201, 164, 141),
+			new Color(166, 204, 186),
+			new Color(255, 196, 169),
+			new Color(251, 141, 117),
+			new Color(190, 89, 68),
+			new Color(0, 0, 0) 
+	};
+
 	public static final Color MAIN_BROWN = new Color(66, 54, 48);
 	public static final Color MAIN_YELLOW = new Color(251, 226, 1);
 	public static final Color MAIN_DARKBLUE = new Color(52, 59, 88);
-	
+
 	public static ImageIcon getImageIcon(int w, int h, String path) {
 		return new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\" + path).getImage()
 				.getScaledInstance(w, h, Image.SCALE_SMOOTH));

@@ -23,6 +23,7 @@ import javax.swing.UIManager;
 import compoment.Button;
 import compoment.Label;
 import compoment.Layout;
+import compoment.Style;
 import compoment.TextButton;
 import compoment.TextField;
 import model.Server;
@@ -217,7 +218,8 @@ public class Register extends Frame {
 		private void register() {
 			try (Server post = new Server("POST", "/auth/register", User.getJSON())) {
 				int code = post.getResponsesCode();
-
+				System.out.println("register : " + code);
+				
 				if (code == 200) {
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "확인", JOptionPane.INFORMATION_MESSAGE);
 

@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +22,7 @@ import compoment.Button;
 import compoment.Label;
 import compoment.Layout;
 import compoment.RoundPanel;
+import compoment.Style;
 import model.Server;
 import model.User;
 
@@ -39,7 +40,7 @@ public class Home extends Frame {
 	}
 
 	private Home() {
-		super(500, 850, "홈화면");
+		super(400, 750, "홈화면");
 		UIManager.put("Panel.background", Color.white);
 		
 		System.out.println(User.getToken());
@@ -66,7 +67,8 @@ public class Home extends Frame {
 	}
 	
 	private JPanel getAddNewAccountPanel() {
-		RoundPanel panel = new RoundPanel(400, 200, Color.LIGHT_GRAY);
+		RoundPanel panel = new RoundPanel(340, 190);
+		panel.setBackground(Color.LIGHT_GRAY);
 		panel.setLayout(null);
 		
 		JLabel text = new Label("새 계좌 추가하기", 0, 20);
@@ -90,7 +92,8 @@ public class Home extends Frame {
 	}
 	
 	private JPanel getAccountList() {
-		JPanel panel = new JPanel(new GridLayout(0, 1, 10, 10));
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(getAddNewAccountPanel());
 		
 		try (Server get = new Server("GET", "/account/find/my", null)){
